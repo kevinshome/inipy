@@ -6,7 +6,7 @@ Using iniPy is as simple as it gets, it's all based on command line arguments.
 
 For example:
 
-`$ inipy basic daffodil`
+`$ python3 -m inipy basic daffodil`
 
 will create a new basic Python project (directory with `__init__.py` and `__main__.py`) with the name __daffodil__.
 
