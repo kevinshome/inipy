@@ -1,6 +1,4 @@
-# iniPy
-### a lightweight python project initalizer
-<br/>
+# iniPy: a lightweight python project initalizer
 iniPy is a lightweight script that automatically creates a new python project according to your given specifications.
 
 ## Usage
