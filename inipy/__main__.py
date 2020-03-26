@@ -32,6 +32,23 @@ def inipy_init():
     project_name = sys.argv[2]
     if project_type.lower() == "basic":
         basic_init(project_name)
+    if project_type.lower() == "django":
+        import pkgutil
+        if pkgutil.find_loader("django"):
+            import re
+            from django.core.management import execute_from_command_line
+            sys.argv = ['django-admin', 'startproject', project_name]
+            sys.argv[0] = re.sub(r'(-script\.pyw|\.exe)?$', '', sys.argv[0])
+            execute_from_command_line()
+        else:
+            print("It seems that django is not installed...")
+            yn = input("Would you like to install it now? (y/n): ")
+            if yn.lower() == "y":
+                import subprocess
+                subprocess.check_call([sys.executable, "-m", "pip", "install", "django"])
+                inipy_init()
+            else:
+                exit(2)
 
 def basic_init(project_name):
     os.mkdir(project_name)
@@ -46,7 +63,7 @@ usage: inipy [TYPE] [NAME]\n\
 \n\
 PARAMETERS:\n\
 \n\
-TYPE        project type ( basic )\n\
+TYPE        project type ( basic, django )\n\
 NAME        project name\n\
 \n\
 written in 2020 by kevinshome\n\

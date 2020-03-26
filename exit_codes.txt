@@ -1,0 +1,4 @@
+get exit code by running "echo $?"
+
+0 => Success
+2 => DJANGO: no django installation found and user opted out of automated install
