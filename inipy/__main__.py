@@ -27,9 +27,9 @@ OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 import os
 import sys
 
-def inipy_init():
-    project_type = sys.argv[1]
-    project_name = sys.argv[2]
+def inipy_init(p_type, p_name):
+    project_type = p_type
+    project_name = p_name
     if project_type.lower() == "basic":
         basic_init(project_name)
     if project_type.lower() == "django":
@@ -46,7 +46,7 @@ def inipy_init():
             if yn.lower() == "y":
                 import subprocess
                 subprocess.check_call([sys.executable, "-m", "pip", "install", "django"])
-                inipy_init()
+                inipy_init(p_type, p_name)
             else:
                 exit(2)
 
@@ -71,7 +71,7 @@ released under the terms of the MIT License")
 
 if __name__ == "__main__":
     if len(sys.argv) > 2:
-        inipy_init()
+        inipy_init(sys.argv[1], sys.argv[2])
     elif len(sys.argv) == 2 and sys.argv[1] == "help":
         help()
     else:
