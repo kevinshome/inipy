@@ -1,0 +1,1 @@
+from inipy.__main__ import *
