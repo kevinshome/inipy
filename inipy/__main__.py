@@ -57,7 +57,7 @@ def basic_init(project_name):
     open("__main__.py", "w").close()
 
 def help():
-    print("iniPy 0.1\n\
+    print("iniPy 0.1.1\n\
 a lightweight python project initializer\n\
 usage: inipy [TYPE] [NAME]\n\
 \n\
