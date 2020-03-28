@@ -27,20 +27,44 @@ OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 import os
 import sys
 
-def inipy_init(p_type, p_name):
-    project_type = p_type
-    project_name = p_name
-    if project_type.lower() == "basic":
-        basic_init(project_name)
-    if project_type.lower() == "django":
+def inipy_init(p_type, p_name, no_main=False) -> bool :
+    '''
+
+    # function inipy_init()
+
+    # arguments:
+    p_type, p_name
+
+    p_type         type of project to be initialized
+    p_name         name of project to be initialized
+
+    # description:
+    the inipy_init() function takes in the given project type and name
+    and uses that info to construct either a basic project folder, or
+    a django project folder
+
+    '''
+    if p_type.lower() == "basic": # basic folder creation
+        try:
+            os.mkdir(p_name)
+        except:
+            exit("Error creating project folder...")
+        os.chdir(p_name)
+        try:
+            open("__init__.py", "w").close()
+            if not no_main:
+                open("__main__.py", "w").close()
+        except:
+            exit("Error creating project files...")
+    if p_type.lower() == "django": # django folder creation (necessary?)
         import pkgutil
         if pkgutil.find_loader("django"):
             import re
             from django.core.management import execute_from_command_line
-            sys.argv = ['django-admin', 'startproject', project_name]
+            sys.argv = ['django-admin', 'startproject', p_name]
             sys.argv[0] = re.sub(r'(-script\.pyw|\.exe)?$', '', sys.argv[0])
             execute_from_command_line()
-        else:
+        else: # either install django for user or exit code 2
             print("It seems that django is not installed...")
             yn = input("Would you like to install it now? (y/n): ")
             if yn.lower() == "y":
@@ -50,13 +74,7 @@ def inipy_init(p_type, p_name):
             else:
                 exit(2)
 
-def basic_init(project_name):
-    os.mkdir(project_name)
-    os.chdir(project_name)
-    open("__init__.py", "w").close()
-    open("__main__.py", "w").close()
-
-def help():
+def help() -> None : # display help menu on command line
     print("iniPy 0.1.1\n\
 a lightweight python project initializer\n\
 usage: inipy [TYPE] [NAME]\n\
@@ -70,10 +88,12 @@ written in 2020 by kevinshome\n\
 released under the terms of the MIT License")
 
 if __name__ == "__main__":
-    if len(sys.argv) > 2:
-        inipy_init(sys.argv[1], sys.argv[2])
-    elif len(sys.argv) == 2 and sys.argv[1] == "help":
+    if len(sys.argv) == 3:
+        # if required amount of args are given, use them to create
+        # new project
+        inipy_init(sys.argv[1], sys.argv[2]) 
+    elif len(sys.argv) == 2 and sys.argv[1] == "help": # 'inipy help'
         help()
-    else:
+    else: # if no args / wrong amount of args are given
         print("unrecognized/invalid input...")
         exit("run 'inipy help' for the help menu")
