@@ -4,6 +4,11 @@ iniPy
 
 a lightweight python project initalizer
 
+'shakespeare.py'
+named after William Shakespeare, arguably one of the greatest writers of history
+
+this module deals with writing the necessary data to the new project files
+
 /// MIT LICENSE ///
 
 Copyright 2020 kevinshome
@@ -23,19 +28,3 @@ AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABL
 DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF 
 OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 '''
-
-import sys
-
-from inipy.wozniak import inipy_init, help
-
-if len(sys.argv) == 3:
-    # if required amount of args are given, use them to create
-    # new project
-    inipy_init(sys.argv[1], sys.argv[2]) 
-elif len(sys.argv) == 2 and sys.argv[1] == "help": # 'inipy help'
-    help()
-elif len(sys.argv) == 2 and sys.argv[1] == "help": # 'inipy help'
-    print("Saucy (0.2)")
-else: # if no args / wrong amount of args are given
-    print("unrecognized/invalid input...")
-    exit("run 'inipy help' for the help menu")
